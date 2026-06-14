@@ -16,5 +16,11 @@
         "event_type": "LOGIN_FAILED",
         "username": "amal",
         "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-14 11:08:39",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
     }
 ]
