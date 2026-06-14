@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from analyzer.logger import log_event
+from analyzer.log_analyzer import analyze_logs
 
 app = Flask(__name__)
 
@@ -56,7 +57,7 @@ def admin_login():
 
         if username == "admin" and password == "admin123":
 
-            return render_template("dashboard.html")
+            return redirect(url_for("dashboard"))
 
         return render_template(
             "response.html",
@@ -68,8 +69,13 @@ def admin_login():
 
 @app.route("/dashboard")
 def dashboard():
-
-    return render_template("dashboard.html")
+    stats = analyze_logs()
+    return render_template(
+        "dashboard.html",
+        total_events=stats["total_events"],
+        successful_logins=stats["successful_logins"],
+        failed_logins=stats["failed_logins"]
+    )
 
 
 if __name__ == "__main__":

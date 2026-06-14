@@ -8,11 +8,9 @@ LOG_FILE = os.path.join(
     "security_logs.json"
 )
 
-
 def analyze_logs():
 
     try:
-
         with open(LOG_FILE, "r") as file:
             logs = json.load(file)
 
