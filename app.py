@@ -41,8 +41,8 @@ def login():
         )
 
         return render_template(
-            "response.html",
-            message="Login Failed"
+            "login.html",
+            message="Invalid username or password"
         )
 
     return render_template("login.html")
@@ -77,7 +77,8 @@ def dashboard():
         "dashboard.html",
         total_events=stats["total_events"],
         successful_logins=stats["successful_logins"],
-        failed_logins=stats["failed_logins"]
+        failed_logins=stats["failed_logins"],
+        recent_events=stats["recent_events"]
     )
 
 @app.route("/logout")

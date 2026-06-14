@@ -16,6 +16,38 @@
     <h3>Failed Logins: {{ failed_logins }}</h3>
 
     <br><br>
+    <hr>
+
+    <h2>Recent Security Events</h2>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Timestamp</th>
+            <th>Event Type</th>
+            <th>Username</th>
+            <th>IP Address</th>
+        </tr>
+
+        {% for event in recent_events %}
+
+        <tr>
+
+            <td>{{ event.timestamp }}</td>
+
+            <td>{{ event.event_type }}</td>
+
+            <td>{{ event.username }}</td>
+
+            <td>{{ event.ip_address }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br><br>
 
     <a href="/logout">
         <button>Logout</button>

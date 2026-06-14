@@ -32,5 +32,6 @@ def analyze_logs():
     return {
         "total_events": total_events,
         "successful_logins": successful_logins,
-        "failed_logins": failed_logins
+        "failed_logins": failed_logins,
+        "recent_events": logs[::-1][:10]
     }
