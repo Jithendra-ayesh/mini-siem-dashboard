@@ -15,7 +15,6 @@
 
     <h3>Failed Logins: {{ failed_logins }}</h3>
 
-    <br><br>
     <hr>
 
     <h2>Recent Security Events</h2>
@@ -47,7 +46,64 @@
 
     </table>
 
-    <br><br>
+    <hr>
+
+    <h2>Threat Alerts</h2>
+
+        {% for alert in credential_alerts %}
+
+    <div>
+
+        <h3>HIGH ALERT</h3>
+
+        <p>
+            Credential Stuffing Detected
+        </p>
+
+        <p>
+            IP: {{ alert.ip }}
+        </p>
+
+        <p>
+            Username: {{ alert.username }}
+        </p>
+
+        <p>
+            Attempts: {{ alert.attempts }}
+        </p>
+
+    </div>
+
+    <hr>
+
+    {% endfor %}
+
+    {% for alert in enumeration_alerts %}
+
+    <div>
+
+        <h3>MEDIUM ALERT</h3>
+
+        <p>
+            Username Enumeration Detected
+        </p>
+
+        <p>
+            IP: {{ alert.ip }}
+        </p>
+
+        <p>
+            Usernames Tried:
+            {{ alert.user_count }}
+        </p>
+
+    </div>
+
+    <hr>
+
+    {% endfor %}
+
+    <br><br> 
 
     <a href="/logout">
         <button>Logout</button>
