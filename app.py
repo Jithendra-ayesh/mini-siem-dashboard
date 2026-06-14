@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from analyzer.logger import log_event
 from analyzer.log_analyzer import analyze_logs
 
 app = Flask(__name__)
+app.secret_key = "mini_siem_secret_key"
 
 
 @app.route("/")
@@ -56,19 +57,21 @@ def admin_login():
         password = request.form["password"]
 
         if username == "admin" and password == "admin123":
-
+            session["admin"] = True
             return redirect(url_for("dashboard"))
 
         return render_template(
-            "response.html",
-            message="Invalid Admin Credentials"
+            "admin_login.html",
+            message="Invalid username or password"
         )
 
     return render_template("admin_login.html")
 
-
 @app.route("/dashboard")
 def dashboard():
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+    
     stats = analyze_logs()
     return render_template(
         "dashboard.html",
@@ -77,6 +80,12 @@ def dashboard():
         failed_logins=stats["failed_logins"]
     )
 
+@app.route("/logout")
+def logout():
+
+    session.pop("admin", None)
+
+    return redirect(url_for("admin_login"))
 
 if __name__ == "__main__":
     app.run(debug=True)
