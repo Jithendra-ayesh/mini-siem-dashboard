@@ -38,6 +38,25 @@
 
     <hr>
 
+    <h2>Top Source IP Addresses</h2>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>IP Address</th>
+            <th>Event Count</th>
+        </tr>
+
+        {% for ip, count in top_ips %}
+
+        <tr>
+            <td>{{ ip }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
     <h2>Recent Security Events</h2>
 
     <table border="1" cellpadding="10">
@@ -55,9 +74,20 @@
             <td>
                 {{ event.timestamp }}
             </td>
-            <td>
+            
+                {% if event.event_type == "LOGIN_SUCCESS" %}
+
+            <td style="color:green;">
                 {{ event.event_type }}
             </td>
+
+            {% else %}
+
+            <td style="color:red;">
+                {{ event.event_type }}
+            </td>
+
+            {% endif %}
             <td>
                 {{ event.username }}
             </td>
@@ -78,7 +108,7 @@
 
     <div>
 
-        <h3>HIGH ALERT (Last 5 Minutes)</h3>
+        <h3 style="color:red;">HIGH ALERT (Last 5 Minutes)</h3>
 
         <p>Credential Stuffing Detected</p>
         <p>IP: {{ alert.ip }}</p>
@@ -95,7 +125,7 @@
 
     <div>
 
-        <h3>MEDIUM ALERT (Last 5 Minutes)</h3>
+        <h3 style="color:orange;">MEDIUM ALERT (Last 5 Minutes)</h3>
 
         <p>Username Enumeration Detected</p>
         <p>IP: {{ alert.ip }}</p>

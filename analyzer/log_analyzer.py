@@ -1,5 +1,6 @@
 import json
 import os
+from collections import Counter
 
 LOG_FILE = os.path.join(
     os.path.dirname(__file__),
@@ -35,3 +36,19 @@ def analyze_logs():
         "failed_logins": failed_logins,
         "recent_events": logs[::-1][:10]
     }
+
+def analyze_top_ips():
+
+    try:
+        with open(LOG_FILE, "r") as file:
+            logs = json.load(file)
+
+    except:
+        return []
+
+    ip_counter = Counter()
+
+    for log in logs:
+        ip_counter[log["ip_address"]] += 1
+
+    return ip_counter.most_common(5)

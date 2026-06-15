@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from analyzer.logger import log_event
-from analyzer.log_analyzer import analyze_logs
+from analyzer.log_analyzer import analyze_logs, analyze_top_ips
 from analyzer.threat_detector import (detect_credential_stuffing, detect_username_enumeration)
 
 app = Flask(__name__)
@@ -76,6 +76,7 @@ def dashboard():
     stats = analyze_logs()
     credential_alerts = detect_credential_stuffing()
     enumeration_alerts = detect_username_enumeration()
+    top_ips = analyze_top_ips()
 
     return render_template(
         "dashboard.html",
@@ -84,7 +85,8 @@ def dashboard():
         failed_logins=stats["failed_logins"],
         recent_events=stats["recent_events"],
         credential_alerts=credential_alerts,
-        enumeration_alerts=enumeration_alerts
+        enumeration_alerts=enumeration_alerts,
+        top_ips=top_ips
     )
 
 @app.route("/logout")
