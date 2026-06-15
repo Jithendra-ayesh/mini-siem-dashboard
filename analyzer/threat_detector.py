@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime, timedelta
 
 LOG_FILE = os.path.join(
     os.path.dirname(__file__),
@@ -8,6 +9,16 @@ LOG_FILE = os.path.join(
     "security_logs.json"
 )
 
+def is_recent(timestamp_str, minutes=5):
+
+    log_time = datetime.strptime(
+        timestamp_str,
+        "%Y-%m-%d %H:%M:%S"
+    )
+
+    return log_time >= (
+        datetime.now() - timedelta(minutes=minutes)
+    )
 
 def detect_credential_stuffing():
 
@@ -25,6 +36,8 @@ def detect_credential_stuffing():
     for log in logs:
 
         if log["event_type"] != "LOGIN_FAILED":
+            continue
+        if not is_recent(log["timestamp"]):
             continue
 
         key = (
@@ -63,6 +76,8 @@ def detect_username_enumeration():
     for log in logs:
 
         if log["event_type"] != "LOGIN_FAILED":
+            continue
+        if not is_recent(log["timestamp"]):
             continue
 
         ip = log["ip_address"]
