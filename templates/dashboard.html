@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Mini SIEM Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -9,11 +10,31 @@
 
     <hr>
 
-    <h3>Total Events: {{ total_events }}</h3>
+    <h3>
+        Total Events: {{ total_events }}
+    </h3>
+    <h3>
+        Successful Logins: {{ successful_logins }}
+    </h3>
+    <h3>
+        Failed Logins: {{ failed_logins }}
+    </h3>
 
-    <h3>Successful Logins: {{ successful_logins }}</h3>
+    <hr>
 
-    <h3>Failed Logins: {{ failed_logins }}</h3>
+    <h2>Security Analytics</h2>
+
+    <canvas id="loginChart"
+            width="40"
+            height="15">
+    </canvas>
+
+    <br><br>
+
+    <canvas id="eventChart"
+            width="400"
+            height="150">
+    </canvas>
 
     <hr>
 
@@ -31,15 +52,18 @@
         {% for event in recent_events %}
 
         <tr>
-
-            <td>{{ event.timestamp }}</td>
-
-            <td>{{ event.event_type }}</td>
-
-            <td>{{ event.username }}</td>
-
-            <td>{{ event.ip_address }}</td>
-
+            <td>
+                {{ event.timestamp }}
+            </td>
+            <td>
+                {{ event.event_type }}
+            </td>
+            <td>
+                {{ event.username }}
+            </td>
+            <td>
+                {{ event.ip_address }}
+            </td>
         </tr>
 
         {% endfor %}
@@ -56,21 +80,10 @@
 
         <h3>HIGH ALERT (Last 5 Minutes)</h3>
 
-        <p>
-            Credential Stuffing Detected
-        </p>
-
-        <p>
-            IP: {{ alert.ip }}
-        </p>
-
-        <p>
-            Username: {{ alert.username }}
-        </p>
-
-        <p>
-            Attempts: {{ alert.attempts }}
-        </p>
+        <p>Credential Stuffing Detected</p>
+        <p>IP: {{ alert.ip }}</p>
+        <p>Username: {{ alert.username }}</p>
+        <p>Attempts: {{ alert.attempts }}</p>
 
     </div>
 
@@ -84,14 +97,8 @@
 
         <h3>MEDIUM ALERT (Last 5 Minutes)</h3>
 
-        <p>
-            Username Enumeration Detected
-        </p>
-
-        <p>
-            IP: {{ alert.ip }}
-        </p>
-
+        <p>Username Enumeration Detected</p>
+        <p>IP: {{ alert.ip }}</p>
         <p>
             Usernames Tried:
             {{ alert.user_count }}
@@ -109,5 +116,53 @@
         <button>Logout</button>
     </a>
 
+    <script>
+        const loginChart = new Chart(
+            document.getElementById("loginChart"),
+            {
+                type: "pie",
+
+                data: {
+                    labels: [
+                        "Successful Logins",
+                        "Failed Logins"
+                    ],
+                    datasets: [{
+                        data: [
+                            {{ successful_logins }},
+                            {{ failed_logins }}
+                        ]
+                    }]
+                }
+            }
+        );
+
+
+        const eventChart = new Chart(
+            document.getElementById("eventChart"),
+            {
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Total Events",
+                        "Successful",
+                        "Failed"
+                    ],
+
+                    datasets: [{
+                        label: "Security Events",
+
+                        data: [
+                            {{ total_events }},
+                            {{ successful_logins }},
+                            {{ failed_logins }}
+                        ]
+                    }]
+                }
+            }
+        );
+    </script>
 </body>
 </html>
