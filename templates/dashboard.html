@@ -117,52 +117,56 @@
     </a>
 
     <script>
-        const loginChart = new Chart(
-            document.getElementById("loginChart"),
-            {
-                type: "pie",
+    const loginChart = new Chart(
+        document.getElementById("loginChart"),
+        {
+            type: "pie",
 
-                data: {
-                    labels: [
-                        "Successful Logins",
-                        "Failed Logins"
-                    ],
-                    datasets: [{
-                        data: [
-                            {{ successful_logins }},
-                            {{ failed_logins }}
-                        ]
-                    }]
-                }
+            data: {
+                labels: [
+                    "Successful Logins",
+                    "Failed Logins"
+                ],
+                datasets: [{
+                    data: [
+                        {{ successful_logins }},
+                        {{ failed_logins }}
+                    ]
+                }]
             }
-        );
+        }
+    );
 
 
-        const eventChart = new Chart(
-            document.getElementById("eventChart"),
-            {
-                type: "bar",
+    const eventChart = new Chart(
+        document.getElementById("eventChart"),
+        {
+            type: "bar",
 
-                data: {
+            data: {
 
-                    labels: [
-                        "Total Events",
-                        "Successful",
-                        "Failed"
-                    ],
+                labels: [
+                    "Total Events",
+                    "Successful",
+                    "Failed"
+                ],
 
-                    datasets: [{
-                        label: "Security Events",
+                datasets: [{
+                    label: "Security Events",
 
-                        data: [
-                            {{ total_events }},
-                            {{ successful_logins }},
-                            {{ failed_logins }}
-                        ]
-                    }]
-                }
+                    data: [
+                        {{ total_events }},
+                        {{ successful_logins }},
+                        {{ failed_logins }}
+                    ]
+                }]
             }
-        );
+        }
+    );
+    </script>
+
+    <script>
+        setInterval(function() {location.reload();}, 5000);
     </script>
 </body>
 </html>
