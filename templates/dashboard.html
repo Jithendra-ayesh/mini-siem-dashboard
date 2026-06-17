@@ -89,42 +89,38 @@
 
     </div>
 
-    <div class="tab-pane fade"
-        id="analytics">
+    <div class="tab-pane fade" id="analytics">
 
-        <h2>Analytics</h2>
+    <h2>Analytics</h2>
 
-        <p>
-            Advanced analytics coming soon...
-        </p>
-
-        <hr>
-
-        <h2>Top Source IP Addresses</h2>
-
-        <table border="1" cellpadding="10">
-            <tr>
-                <th>IP Address</th>
-                <th>Event Count</th>
-            </tr>
-
-            {% for ip, count in top_ips %}
-
-            <tr>
-                <td>{{ ip }}</td>
-                <td>{{ count }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-
+    <div class="card p-3 mb-4">
+        <h4>Top Targeted Usernames</h4>
+        <canvas id="usernameChart"></canvas>
     </div>
+
+    <div class="card p-3 mb-4">
+        <h4>Top Source IP Addresses</h4>
+        <canvas id="ipChart"></canvas>
+    </div>
+
+    <div class="card p-3 mb-4">
+        <h4>Login Attempts Per Day</h4>
+        <canvas id="dailyChart"></canvas>
+    </div>
+
+    <div class="card p-3">
+        <h4>Login Attempts Per Hour</h4>
+        <canvas id="hourlyChart"></canvas>
+    </div>
+
+</div>
 
         <div class="tab-pane fade"
         id="events">
 
         <h2>Recent Security Events</h2>
 
-        <table border="1" cellpadding="10">
+        <table class="table table-striped table-bordered">
 
             <tr>
                 <th>Timestamp</th>
@@ -174,7 +170,7 @@
 
             {% for alert in credential_alerts %}
 
-        <div>
+        <div class="card border-danger p-3 mb-3">
 
             <h3 style="color:red;">HIGH ALERT (Last 5 Minutes)</h3>
 
@@ -191,7 +187,7 @@
 
         {% for alert in enumeration_alerts %}
 
-        <div>
+        <div class="card border-warning p-3 mb-3">
 
             <h3 style="color:orange;">MEDIUM ALERT (Last 5 Minutes)</h3>
 
@@ -215,6 +211,58 @@
     <a href="/logout">
         <button>Logout</button>
     </a>
+
+    <script>
+
+        const usernameLabels = [
+        {% for username, count in top_usernames %}
+            "{{ username }}",
+        {% endfor %}
+        ];
+
+        const usernameCounts = [
+        {% for username, count in top_usernames %}
+            {{ count }},
+        {% endfor %}
+        ];
+
+        const ipLabels = [
+        {% for ip, count in top_ips %}
+            "{{ ip }}",
+        {% endfor %}
+        ];
+
+        const ipCounts = [
+        {% for ip, count in top_ips %}
+            {{ count }},
+        {% endfor %}
+        ];
+
+    const dailyLabels = [
+    {% for date, count in daily_activity.items() %}
+        "{{ date }}",
+    {% endfor %}
+    ];
+
+    const dailyCounts = [
+    {% for date, count in daily_activity.items() %}
+        {{ count }},
+    {% endfor %}
+    ];
+
+    const hourlyLabels = [
+    {% for hour, count in hourly_activity.items() %}
+        "{{ hour }}",
+    {% endfor %}
+    ];
+
+    const hourlyCounts = [
+    {% for hour, count in hourly_activity.items() %}
+        {{ count }},
+    {% endfor %}
+    ];
+
+    </script>
 
     <script>
     const loginChart = new Chart(
@@ -263,6 +311,75 @@
             }
         }
     );
+
+    const usernameChart = new Chart(
+    document.getElementById("usernameChart"),
+    {
+        type: "bar",
+
+        data: {
+            labels: usernameLabels,
+
+            datasets: [{
+                label: "Targeted Usernames",
+                data: usernameCounts
+            }]
+        }
+    }
+);
+
+const ipChart = new Chart(
+    document.getElementById("ipChart"),
+    {
+        type: "bar",
+
+        data: {
+            labels: ipLabels,
+
+            datasets: [{
+                label: "Source IP Activity",
+                data: ipCounts
+            }]
+        }
+    }
+);
+
+const dailyChart = new Chart(
+    document.getElementById("dailyChart"),
+    {
+
+        type: "line",
+
+        data: {
+
+            labels: dailyLabels,
+
+            datasets: [{
+                label: "Events Per Day",
+
+                data: dailyCounts
+            }]
+        }
+    }
+);
+const hourlyChart = new Chart(
+    document.getElementById("hourlyChart"),
+    {
+
+        type: "line",
+
+        data: {
+
+            labels: hourlyLabels,
+
+            datasets: [{
+                label: "Events Per Hour",
+
+                data: hourlyCounts
+            }]
+        }
+    }
+);
     </script>
 
     <script>
