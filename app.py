@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from analyzer.logger import log_event
 from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_usernames, analyze_daily_activity, analyze_hourly_activity
 from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration
@@ -94,6 +94,27 @@ def dashboard():
         daily_activity=daily_activity,
         hourly_activity=hourly_activity,
     )
+
+@app.route("/dashboard-data")
+def dashboard_data():
+
+    stats = analyze_logs()
+
+    credential_alerts = detect_credential_stuffing()
+    enumeration_alerts = detect_username_enumeration()
+
+    top_ips = analyze_top_ips()
+    top_usernames = analyze_top_usernames()
+
+    return jsonify({
+        "total_events": stats["total_events"],
+        "successful_logins": stats["successful_logins"],
+        "failed_logins": stats["failed_logins"],
+        "credential_alerts": credential_alerts,
+        "enumeration_alerts": enumeration_alerts,
+        "top_ips": top_ips,
+        "top_usernames": top_usernames
+    })
 
 @app.route("/logout")
 def logout():

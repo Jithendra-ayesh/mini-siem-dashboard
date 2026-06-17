@@ -2,11 +2,11 @@ import requests
 
 TARGET_URL = "http://127.0.0.1:5000/login"
 
-for i in range(10):
+for i in range(5):
 
     data = {
         "username": "admin",
-        "password": f"wrong{i}"
+        "password": f"1234"
     }
 
     requests.post(
