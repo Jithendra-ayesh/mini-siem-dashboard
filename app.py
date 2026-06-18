@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, Response
 from analyzer.logger import log_event
 from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_usernames, analyze_daily_activity, analyze_hourly_activity
 from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration
+from io import StringIO
+import csv
 
 app = Flask(__name__)
 app.secret_key = "mini_siem_secret_key"
@@ -102,19 +104,60 @@ def dashboard_data():
 
     credential_alerts = detect_credential_stuffing()
     enumeration_alerts = detect_username_enumeration()
-
     top_ips = analyze_top_ips()
     top_usernames = analyze_top_usernames()
+    daily_activity = analyze_daily_activity()
+    hourly_activity = analyze_hourly_activity()
 
     return jsonify({
         "total_events": stats["total_events"],
         "successful_logins": stats["successful_logins"],
         "failed_logins": stats["failed_logins"],
+        "recent_events": stats["recent_events"],
         "credential_alerts": credential_alerts,
         "enumeration_alerts": enumeration_alerts,
         "top_ips": top_ips,
-        "top_usernames": top_usernames
+        "top_usernames": top_usernames,
+        "daily_activity": daily_activity,
+        "hourly_activity": hourly_activity
     })
+
+@app.route("/export")
+def export_csv():
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    with open("logs/security_logs.json", "r") as file:
+        logs = json.load(file)
+
+    output = StringIO()
+    writer = csv.writer(output)
+    writer.writerow([
+        "Timestamp",
+        "Event Type",
+        "Username",
+        "IP Address"
+    ])
+
+    for log in logs:
+        writer.writerow([
+            log["timestamp"],
+            log["event_type"],
+            log["username"],
+            log["ip_address"]
+        ])
+
+    response = Response(
+        output.getvalue(),
+        mimetype="text/csv"
+    )
+
+    response.headers[
+        "Content-Disposition"
+    ] = "attachment; filename=security_report.csv"
+
+    return response
 
 @app.route("/logout")
 def logout():

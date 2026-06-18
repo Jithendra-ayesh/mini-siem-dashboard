@@ -6,7 +6,7 @@ for i in range(5):
 
     data = {
         "username": "admin",
-        "password": f"1234"
+        "password": f"wrong{i}"
     }
 
     requests.post(
