@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 from analyzer.logger import log_event
 from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_usernames, analyze_daily_activity, analyze_hourly_activity
 from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration
+from analyzer.threat_history import load_threat_history
 from io import StringIO
 import csv
 
@@ -78,6 +79,7 @@ def dashboard():
     stats = analyze_logs()
     credential_alerts = detect_credential_stuffing()
     enumeration_alerts = detect_username_enumeration()
+    threat_history = load_threat_history()
     top_ips = analyze_top_ips()
     top_usernames = analyze_top_usernames()
     daily_activity = analyze_daily_activity()
@@ -91,6 +93,7 @@ def dashboard():
         recent_events=stats["recent_events"],
         credential_alerts=credential_alerts,
         enumeration_alerts=enumeration_alerts,
+        threat_history=threat_history,
         top_ips=top_ips,
         top_usernames=top_usernames,
         daily_activity=daily_activity,
@@ -99,11 +102,14 @@ def dashboard():
 
 @app.route("/dashboard-data")
 def dashboard_data():
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
 
     stats = analyze_logs()
 
     credential_alerts = detect_credential_stuffing()
     enumeration_alerts = detect_username_enumeration()
+    threat_history = load_threat_history()
     top_ips = analyze_top_ips()
     top_usernames = analyze_top_usernames()
     daily_activity = analyze_daily_activity()
@@ -116,6 +122,7 @@ def dashboard_data():
         "recent_events": stats["recent_events"],
         "credential_alerts": credential_alerts,
         "enumeration_alerts": enumeration_alerts,
+        "threat_history": threat_history,
         "top_ips": top_ips,
         "top_usernames": top_usernames,
         "daily_activity": daily_activity,

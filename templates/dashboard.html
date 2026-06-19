@@ -171,37 +171,22 @@
 
         <div id="threat-container">
 
-            {% for alert in credential_alerts %}
+            <h2>Threat History</h2>
 
-            <div class="card border-danger p-3 mb-3">
-
-                <h3 style="color:red;">
-                    HIGH ALERT (Last 5 Minutes)
-                </h3>
-
-                <p>Credential Stuffing Detected</p>
-                <p>IP: {{ alert.ip }}</p>
-                <p>Username: {{ alert.username }}</p>
-                <p>Attempts: {{ alert.attempts }}</p>
-
-            </div>
-
-            {% endfor %}
-
-            {% for alert in enumeration_alerts %}
-
-            <div class="card border-warning p-3 mb-3">
-
-                <h3 style="color:orange;">
-                    MEDIUM ALERT (Last 5 Minutes)
-                </h3>
-
-                <p>Username Enumeration Detected</p>
-                <p>IP: {{ alert.ip }}</p>
-                <p>Usernames Tried: {{ alert.user_count }}</p>
-
-            </div>
-            {% endfor %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Severity</th>
+                        <th>Threat Type</th>
+                        <th>IP Address</th>
+                        <th>Username</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="threat-history-body">
+                </tbody>
+            </table>
         </div>
     </div>
 

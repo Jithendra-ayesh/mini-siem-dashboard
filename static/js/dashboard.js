@@ -234,9 +234,27 @@ function updateDashboard() {
 
                     <p>Username Enumeration Detected</p>
                     <p>IP: ${alert.ip}</p>
-                    <p>Usernames Tried: ${alert.user_count}
-                    </p>
+                    <p>Usernames Tried: ${alert.user_count}</p>
                 </div>
+            `;
+        });
+
+        const historyBody =
+            document.getElementById("threat-history-body");
+
+        historyBody.innerHTML = "";
+
+        data.threat_history.forEach(threat => {
+
+            historyBody.innerHTML += `
+                <tr>
+                    <td>${threat.timestamp}</td>
+                    <td>${threat.severity}</td>
+                    <td>${threat.threat_type}</td>
+                    <td>${threat.ip}</td>
+                    <td>${threat.username}</td>
+                    <td>${threat.status}</td>
+                </tr>
             `;
         });
     });

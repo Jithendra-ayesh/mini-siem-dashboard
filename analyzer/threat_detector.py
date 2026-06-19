@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime, timedelta
+from analyzer.threat_logger import log_threat
 
 LOG_FILE = os.path.join(
     os.path.dirname(__file__),
@@ -60,6 +61,15 @@ def detect_credential_stuffing():
                 "attempts": count
             })
 
+            log_threat(
+                "HIGH",
+                "Credential Stuffing",
+                ip,
+                username,
+                f"{count} failed login attempts within 5 minutes",
+                "Potential account compromise attempt"
+            )
+
     return alerts
 
 def detect_username_enumeration():
@@ -99,5 +109,14 @@ def detect_username_enumeration():
                 "ip": ip,
                 "user_count": len(usernames)
             })
+
+            log_threat(
+                "MEDIUM",
+                "Username Enumeration",
+                ip,
+                "MULTIPLE_USERS",
+                f"{len(usernames)} usernames tested from same IP",
+                "Account discovery activity detected"
+            )
 
     return alerts
