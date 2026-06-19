@@ -240,20 +240,33 @@ function updateDashboard() {
         });
 
         const historyBody =
-            document.getElementById("threat-history-body");
+            document.getElementById("threat-history-body").reverse();
 
         historyBody.innerHTML = "";
 
         data.threat_history.forEach(threat => {
+            
+            let badgeClass = "bg-success";
 
+            if(threat.severity === "HIGH")
+                badgeClass = "bg-danger";
+
+            else if(threat.severity === "MEDIUM")
+                badgeClass = "bg-warning";
             historyBody.innerHTML += `
                 <tr>
                     <td>${threat.timestamp}</td>
-                    <td>${threat.severity}</td>
+                    <td>
+                        <span class="badge ${badgeClass}">
+                            ${threat.severity}
+                        </span>
+                    </td>
                     <td>${threat.threat_type}</td>
                     <td>${threat.ip}</td>
                     <td>${threat.username}</td>
                     <td>${threat.status}</td>
+                    <td>${threat.reason}</td>
+                    <td>${threat.impact}</td>
                 </tr>
             `;
         });

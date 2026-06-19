@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 THREAT_FILE = "logs/threat_history.json"
 
@@ -21,10 +21,16 @@ def log_threat(
         threats = []
 
     for threat in reversed(threats):
+        last_time = datetime.strptime(
+            threat["timestamp"],
+            "%Y-%m-%d %H:%M:%S"
+        )
+
         if (
             threat["ip"] == ip and
             threat["threat_type"] == threat_type and
-            threat["status"] == "OPEN"
+            (datetime.now() - last_time)
+                < timedelta(seconds=60)
         ):
             return
 

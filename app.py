@@ -80,6 +80,20 @@ def dashboard():
     credential_alerts = detect_credential_stuffing()
     enumeration_alerts = detect_username_enumeration()
     threat_history = load_threat_history()
+    high_alerts = len([
+        t for t in threat_history
+        if t["severity"] == "HIGH"
+    ])
+
+    medium_alerts = len([
+        t for t in threat_history
+        if t["severity"] == "MEDIUM"
+    ])
+
+    open_alerts = len([
+        t for t in threat_history
+        if t["status"] == "OPEN"
+    ])
     top_ips = analyze_top_ips()
     top_usernames = analyze_top_usernames()
     daily_activity = analyze_daily_activity()
@@ -94,6 +108,9 @@ def dashboard():
         credential_alerts=credential_alerts,
         enumeration_alerts=enumeration_alerts,
         threat_history=threat_history,
+        high_alerts=high_alerts,
+        medium_alerts=medium_alerts,
+        open_alerts=open_alerts,
         top_ips=top_ips,
         top_usernames=top_usernames,
         daily_activity=daily_activity,
