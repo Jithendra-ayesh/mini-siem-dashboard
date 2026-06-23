@@ -910,5 +910,125 @@
         "event_type": "LOGIN_FAILED",
         "username": "admin",
         "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:14:50",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:14:50",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:14:50",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:14:51",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:14:51",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:26:25",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:26:25",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:26:25",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:26:25",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:26:25",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:50:52",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:50:52",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:50:52",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:50:52",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 12:50:52",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 13:03:38",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 13:03:38",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 13:03:38",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 13:03:38",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 13:03:38",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
     }
 ]

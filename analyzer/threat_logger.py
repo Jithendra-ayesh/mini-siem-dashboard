@@ -30,7 +30,7 @@ def log_threat(
             threat["ip"] == ip and
             threat["threat_type"] == threat_type and
             (datetime.now() - last_time)
-                < timedelta(seconds=60)
+                < timedelta(seconds=300)
         ):
             return
 
@@ -46,7 +46,7 @@ def log_threat(
         "username": username,
         "reason": reason,
         "impact": impact,
-        "status": "OPEN"
+        "status": "OPEN",
     })
 
     with open(THREAT_FILE, "w") as file:

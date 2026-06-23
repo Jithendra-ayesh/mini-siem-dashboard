@@ -245,22 +245,11 @@ function updateDashboard() {
         historyBody.innerHTML = "";
 
         data.threat_history.forEach(threat => {
-            
-            let badgeClass = "bg-success";
-
-            if(threat.severity === "HIGH")
-                badgeClass = "bg-danger";
-
-            else if(threat.severity === "MEDIUM")
-                badgeClass = "bg-warning";
+ 
             historyBody.innerHTML += `
                 <tr>
                     <td>${threat.timestamp}</td>
-                    <td>
-                        <span class="badge ${badgeClass}">
-                            ${threat.severity}
-                        </span>
-                    </td>
+                    <td>${threat.severity}</td>
                     <td>${threat.threat_type}</td>
                     <td>${threat.ip}</td>
                     <td>${threat.username}</td>

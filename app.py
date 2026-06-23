@@ -253,6 +253,72 @@ def block_ip(ip):
         url_for("dashboard")
     )
 
+@app.route("/resolve-threat/<ip>")
+def resolve_threat(ip):
+
+    try:
+        with open(
+            "logs/blocked_ips.json",
+            "r"
+        ) as file:
+
+            blocked_ips = json.load(file)
+
+    except:
+        blocked_ips = []
+
+    blocked_ips = [
+        item
+        for item in blocked_ips
+        if item["ip"] != ip
+    ]
+
+    with open(
+        "logs/blocked_ips.json",
+        "w"
+    ) as file:
+
+        json.dump(
+            blocked_ips,
+            file,
+            indent=4
+        )
+
+    try:
+        with open(
+            "logs/threat_history.json",
+            "r"
+        ) as file:
+
+            threats = json.load(file)
+
+    except:
+        threats = []
+
+    for threat in threats:
+
+        if (
+            threat["ip"] == ip and
+            threat["status"] == "BLOCKED"
+        ):
+
+            threat["status"] = "RESOLVED"
+
+    with open(
+        "logs/threat_history.json",
+        "w"
+    ) as file:
+
+        json.dump(
+            threats,
+            file,
+            indent=4
+        )
+
+    return redirect(
+        url_for("dashboard")
+    )
+
 @app.route("/logout")
 def logout():
 

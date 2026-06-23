@@ -7,9 +7,23 @@
 </head>
 <body class="container mt-4">
 
-    <h1 class="mb-4">
-        Mini SIEM Dashboard
-    </h1>
+    <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+
+            <span class="navbar-brand mb-0 h1">
+
+                🛡 Mini SIEM Dashboard
+
+            </span>
+
+            <span class="text-light">
+
+                Security Operations Center
+
+            </span>
+
+        </div>
+    </nav>
 
     <ul class="nav nav-tabs" id="dashboardTabs">
 
@@ -57,21 +71,21 @@
         <div class="row">
 
             <div class="col-md-4">
-                <div class="card p-3">
+                <div class="card shadow-lg border-0 p-3 bg-primary text-white">
                     <h4>Total Events</h4>
                     <h2 id="total-events">{{ total_events }}</h2>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card p-3">
+                <div class="card shadow-lg border-0 p-3 bg-success text-white">
                     <h4>Successful Logins</h4>
                     <h2 id="successful-logins">{{ successful_logins }}</h2>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card p-3">
+                <div class="card shadow-lg border-0 p-3 bg-danger text-white">
                     <h4>Failed Logins</h4>
                     <h2 id="failed-logins">{{ failed_logins }}</h2>
                 </div>
@@ -80,37 +94,43 @@
         </div>
 
         <br>
+        <div class="row mt-4">
+            <div style="height: 300px;">
+                    <canvas id="loginChart"></canvas>
+                    </div>
 
-        <canvas id="loginChart"></canvas>
-
-        <br>
-
-        <canvas id="eventChart"></canvas>
-
+            <div style="height: 300px;">
+                    <canvas id="eventChart"></canvas>
+            </div>
+        </div>
     </div>
 
     <div class="tab-pane fade" id="analytics">
 
     <h2>Analytics</h2>
-
-    <div class="card p-3 mb-4">
+<div class="row">
+    <div class="card shadow p-3 mb-3 col-md-6">
         <h4>Top Targeted Usernames</h4>
         <canvas id="usernameChart"></canvas>
     </div>
 
-    <div class="card p-3 mb-4">
+    <div class="card shadow p-3 mb-3 col-md-6">
         <h4>Top Source IP Addresses</h4>
         <canvas id="ipChart"></canvas>
     </div>
+    </div>
 
-    <div class="card p-3 mb-4">
+    <div class="row mt-4">
+
+    <div class="card shadow p-3 mb-3 col-md-6">
         <h4>Login Attempts Per Day</h4>
         <canvas id="dailyChart"></canvas>
     </div>
 
-    <div class="card p-3">
+    <div class="card shadow p-3 mb-3 col-md-6">
         <h4>Login Attempts Per Hour</h4>
         <canvas id="hourlyChart"></canvas>
+    </div>
     </div>
 
 </div>
@@ -171,29 +191,29 @@
 
         <div class="row">
 
-            <div class="col-md-4">
-                <div class="card border-danger p-3">
+            <div class="col-md-3">
+                <div class="card shadow-lg border-0 p-3 bg-danger text-white">
                     <h5>High Alerts</h5>
                     <h2>{{ high_alerts }}</h2>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card border-warning p-3">
+            <div class="col-md-3">
+                <div class="card shadow-lg border-0 p-3 bg-warning text-white">
                     <h5>Medium Alerts</h5>
                     <h2>{{ medium_alerts }}</h2>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card border-primary p-3">
+            <div class="col-md-3">
+                <div class="card shadow-lg border-0 p-3 bg-primary text-white">
                     <h5>Open Incidents</h5>
                     <h2>{{ open_alerts }}</h2>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card border-warning p-3">
+            <div class="col-md-3">
+                <div class="card shadow-lg border-0 p-3 bg-dark text-white">
                     <h5>Blocked IPs</h5>
                     <h2>{{ blocked_count }}</h2>
                 </div>
@@ -208,7 +228,7 @@
     <hr>
             <h2>Threat History</h2>
 
-            <table class="table table-bordered table-striped">
+            <table class="table table-dark table-hover">
                 <thead>
                     <tr>
                         <th>Time</th>
@@ -229,7 +249,18 @@
                 <tr>
 
                     <td>{{ threat.timestamp }}</td>
-                    <td>{{ threat.severity }}</td>
+                    <td>{% if threat.severity == "HIGH" %}
+                        <span class="badge bg-danger">
+                            HIGH
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-warning">
+                            MEDIUM
+                        </span>
+
+                        {% endif %}</td>
                     <td>{{ threat.threat_type }}</td>
                     <td>{{ threat.ip }}</td>
                     <td>{{ threat.username }}</td>
@@ -254,9 +285,33 @@
                     <td>{{ threat.reason }}</td>
                     <td>{{ threat.impact }}</td>
                     <td>
-                        <a href="/block-ip/{{ threat.ip }}">
-                            <button class="btn btn-danger btn-sm">Block IP</button>
-                        </a>
+
+                    {% if threat.status == "OPEN" %}
+
+                    <a href="/block-ip/{{ threat.ip }}"
+                    class="btn btn-danger btn-sm">
+
+                        Block IP
+
+                    </a>
+
+                    {% elif threat.status == "BLOCKED" %}
+
+                    <a href="/resolve-threat/{{ threat.ip }}"
+                    class="btn btn-warning btn-sm">
+
+                        Resolve
+
+                    </a>
+
+                    {% else %}
+
+                    <span class="badge bg-success">
+                        Closed
+                    </span>
+
+                    {% endif %}
+
                     </td>
                 </tr>
 
@@ -267,15 +322,15 @@
         </div>
     </div>
 
-    <a href="/export" class="btn btn-success">
-    Export CSV Report
-    </a>
+    <a href="/export" class="btn btn-success">📥 Export Report</a>
 
     <br><br>
 
-    <a href="/logout">
-        <button>Logout</button>
-    </a>
+    <a href="/logout" class="btn btn-outline-danger">Logout</a>
+
+    <hr>
+
+<p class="text-center text-muted">Mini SIEM Dashboard v1.0</p>
 
     <script>
 
