@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 from analyzer.logger import log_event
 from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_usernames, analyze_daily_activity, analyze_hourly_activity
 from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration
-from analyzer.threat_history import load_threat_history
+from analyzer.threat_history import load_threat_history, mark_ip_blocked
+from analyzer.blocklist import is_ip_blocked
 from io import StringIO
+from datetime import datetime
 import csv, json
 
 app = Flask(__name__)
@@ -24,6 +26,13 @@ def login():
         password = request.form["password"]
 
         ip_address = request.remote_addr
+
+        if is_ip_blocked(ip_address):
+
+            return render_template(
+                "login.html",
+                message="Access Denied - IP Address Blocked"
+            )
 
         if username == "admin" and password == "1234":
 
@@ -59,6 +68,15 @@ def admin_login():
 
         username = request.form["username"]
         password = request.form["password"]
+
+        ip_address = request.remote_addr
+
+        if is_ip_blocked(ip_address):
+
+            return render_template(
+                "admin_login.html",
+                message="Access Denied - IP Address Blocked"
+            )
 
         if username == "admin" and password == "admin123":
             session["admin"] = True
@@ -209,7 +227,14 @@ def block_ip(ip):
         blocked_ips = []
 
     if ip not in blocked_ips:
-        blocked_ips.append(ip)
+        blocked_ips.append({
+            "ip": ip,
+            "blocked_at": datetime.now().strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+
+            "reason": "Manual block from dashboard"
+        })
 
     with open(
         "logs/blocked_ips.json",
@@ -221,6 +246,8 @@ def block_ip(ip):
             file,
             indent=4
         )
+
+    mark_ip_blocked(ip)
 
     return redirect(
         url_for("dashboard")

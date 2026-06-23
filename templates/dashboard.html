@@ -233,7 +233,24 @@
                     <td>{{ threat.threat_type }}</td>
                     <td>{{ threat.ip }}</td>
                     <td>{{ threat.username }}</td>
-                    <td>{{ threat.status }}</td>
+                    <td>{% if threat.status == "BLOCKED" %}
+                        <span class="badge bg-danger">
+                            BLOCKED
+                        </span>
+
+                        {% elif threat.status == "OPEN" %}
+
+                        <span class="badge bg-warning">
+                            OPEN
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-success">
+                            RESOLVED
+                        </span>
+
+                        {% endif %}</td>
                     <td>{{ threat.reason }}</td>
                     <td>{{ threat.impact }}</td>
                     <td>
