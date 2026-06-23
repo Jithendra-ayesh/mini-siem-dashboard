@@ -4,7 +4,7 @@ from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_use
 from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration
 from analyzer.threat_history import load_threat_history
 from io import StringIO
-import csv
+import csv, json
 
 app = Flask(__name__)
 app.secret_key = "mini_siem_secret_key"
@@ -98,6 +98,16 @@ def dashboard():
     top_usernames = analyze_top_usernames()
     daily_activity = analyze_daily_activity()
     hourly_activity = analyze_hourly_activity()
+    try:
+        with open(
+            "logs/blocked_ips.json",
+            "r"
+        ) as file:
+
+            blocked_ips = json.load(file)
+
+    except:
+        blocked_ips = []
 
     return render_template(
         "dashboard.html",
@@ -115,6 +125,7 @@ def dashboard():
         top_usernames=top_usernames,
         daily_activity=daily_activity,
         hourly_activity=hourly_activity,
+        blocked_count=len(blocked_ips)
     )
 
 @app.route("/dashboard-data")
@@ -182,6 +193,38 @@ def export_csv():
     ] = "attachment; filename=security_report.csv"
 
     return response
+
+@app.route("/block-ip/<ip>")
+def block_ip(ip):
+
+    try:
+        with open(
+            "logs/blocked_ips.json",
+            "r"
+        ) as file:
+
+            blocked_ips = json.load(file)
+
+    except:
+        blocked_ips = []
+
+    if ip not in blocked_ips:
+        blocked_ips.append(ip)
+
+    with open(
+        "logs/blocked_ips.json",
+        "w"
+    ) as file:
+
+        json.dump(
+            blocked_ips,
+            file,
+            indent=4
+        )
+
+    return redirect(
+        url_for("dashboard")
+    )
 
 @app.route("/logout")
 def logout():

@@ -886,5 +886,17 @@
         "event_type": "LOGIN_FAILED",
         "username": "admin",
         "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 10:24:38",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-23 10:24:48",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
     }
 ]

@@ -192,6 +192,13 @@
                 </div>
             </div>
 
+            <div class="col-md-4">
+                <div class="card border-warning p-3">
+                    <h5>Blocked IPs</h5>
+                    <h2>{{ blocked_count }}</h2>
+                </div>
+            </div>
+
         </div>
         <hr>
 
@@ -212,6 +219,7 @@
                         <th>Status</th>
                         <th>Reason</th>
                         <th>Impact</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="threat-history-body">
@@ -228,6 +236,11 @@
                     <td>{{ threat.status }}</td>
                     <td>{{ threat.reason }}</td>
                     <td>{{ threat.impact }}</td>
+                    <td>
+                        <a href="/block-ip/{{ threat.ip }}">
+                            <button class="btn btn-danger btn-sm">Block IP</button>
+                        </a>
+                    </td>
                 </tr>
 
                 {% endfor %}
