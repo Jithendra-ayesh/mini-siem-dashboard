@@ -212,6 +212,58 @@ def export_csv():
 
     return response
 
+@app.route("/export-threats")
+def export_threats():
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    with open(
+        "logs/threat_history.json",
+        "r"
+    ) as file:
+
+        threats = json.load(file)
+
+    output = StringIO()
+
+    writer = csv.writer(output)
+
+    writer.writerow([
+        "Timestamp",
+        "Severity",
+        "Threat Type",
+        "IP Address",
+        "Username",
+        "Status",
+        "Reason",
+        "Impact"
+    ])
+
+    for threat in threats:
+
+        writer.writerow([
+            threat["timestamp"],
+            threat["severity"],
+            threat["threat_type"],
+            threat["ip"],
+            threat["username"],
+            threat["status"],
+            threat["reason"],
+            threat["impact"]
+        ])
+
+    response = Response(
+        output.getvalue(),
+        mimetype="text/csv"
+    )
+
+    response.headers[
+        "Content-Disposition"
+    ] = "attachment; filename=threat_history.csv"
+
+    return response
+
 @app.route("/block-ip/<ip>")
 def block_ip(ip):
 

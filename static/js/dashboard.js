@@ -214,7 +214,7 @@ function updateDashboard() {
             threatContainer.innerHTML += `
 
                 <div class="card border-danger p-3 mb-3">
-
+                    
                     <h3 style="color:red;">HIGH ALERT</h3>
 
                     <p>Credential Stuffing Detected</p>
@@ -229,7 +229,7 @@ function updateDashboard() {
 
             threatContainer.innerHTML += `
                 <div class="card border-warning p-3 mb-3">
-
+                    
                     <h3 style="color:orange;">MEDIUM ALERT</h3>
 
                     <p>Username Enumeration Detected</p>
