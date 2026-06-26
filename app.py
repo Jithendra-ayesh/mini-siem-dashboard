@@ -25,7 +25,10 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        ip_address = request.remote_addr
+        ip_address = request.headers.get(
+            "X-Forwarded-For",
+            request.remote_addr
+        )
 
         if is_ip_blocked(ip_address):
 
@@ -69,7 +72,10 @@ def admin_login():
         username = request.form["username"]
         password = request.form["password"]
 
-        ip_address = request.remote_addr
+        ip_address = request.headers.get(
+            "X-Forwarded-For",
+            request.remote_addr
+        )
 
         if is_ip_blocked(ip_address):
 
