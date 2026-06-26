@@ -209,11 +209,25 @@ function updateDashboard() {
 
         threatContainer.innerHTML = "";
 
+        data.brute_force_alerts.forEach(alert => {
+
+            threatContainer.innerHTML += `
+            <div class="card border-danger p-3 col-mb-3">
+                <h3 style="color:red;">
+                    🚨 BRUTE FORCE ATTACK
+                </h3>
+
+                <p>IP : ${alert.ip}</p>
+                <p>Attempts : ${alert.attempts}</p>
+            </div>
+            `;
+        });
+
         data.credential_alerts.forEach(alert => {
 
             threatContainer.innerHTML += `
 
-                <div class="card border-danger p-3 mb-3">
+                <div class="card border-danger p-3 col-mb-3">
                     
                     <h3 style="color:red;">HIGH ALERT</h3>
 
@@ -228,13 +242,27 @@ function updateDashboard() {
         data.enumeration_alerts.forEach(alert => {
 
             threatContainer.innerHTML += `
-                <div class="card border-warning p-3 mb-3">
+                <div class="card border-warning p-3 col-mb-3">
                     
                     <h3 style="color:orange;">MEDIUM ALERT</h3>
 
                     <p>Username Enumeration Detected</p>
                     <p>IP: ${alert.ip}</p>
                     <p>Usernames Tried: ${alert.user_count}</p>
+                </div>
+            `;
+        });
+
+        data.mixed_alerts.forEach(alert => {
+
+            threatContainer.innerHTML += `
+                <div class="card border-dark p-3 col-mb-3">
+                    <h3 style="color:purple;">
+                        🚨 MIXED ATTACK
+                    </h3>
+                    <p>IP: ${alert.ip}</p>
+                    <p>Attempts: ${alert.attempts}</p>
+                    <p>Usernames: ${alert.usernames}</p>
                 </div>
             `;
         });

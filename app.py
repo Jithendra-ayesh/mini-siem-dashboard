@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, Response
 from analyzer.logger import log_event
 from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_usernames, analyze_daily_activity, analyze_hourly_activity
-from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration
+from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration, detect_brute_force, detect_mixed_attack
 from analyzer.threat_history import load_threat_history, mark_ip_blocked
 from analyzer.blocklist import is_ip_blocked
 from io import StringIO
@@ -103,6 +103,8 @@ def dashboard():
     stats = analyze_logs()
     credential_alerts = detect_credential_stuffing()
     enumeration_alerts = detect_username_enumeration()
+    brute_force_alerts = detect_brute_force()
+    mixed_alerts = detect_mixed_attack()
     threat_history = load_threat_history()
     high_alerts = len([
         t for t in threat_history
@@ -141,6 +143,7 @@ def dashboard():
         recent_events=stats["recent_events"],
         credential_alerts=credential_alerts,
         enumeration_alerts=enumeration_alerts,
+        brute_force_alerts=brute_force_alerts,
         threat_history=threat_history,
         high_alerts=high_alerts,
         medium_alerts=medium_alerts,
@@ -161,6 +164,8 @@ def dashboard_data():
 
     credential_alerts = detect_credential_stuffing()
     enumeration_alerts = detect_username_enumeration()
+    brute_force_alerts = detect_brute_force()
+    mixed_alerts = detect_mixed_attack()
     threat_history = load_threat_history()
     top_ips = analyze_top_ips()
     top_usernames = analyze_top_usernames()
@@ -174,6 +179,8 @@ def dashboard_data():
         "recent_events": stats["recent_events"],
         "credential_alerts": credential_alerts,
         "enumeration_alerts": enumeration_alerts,
+        "brute_force_alerts": brute_force_alerts,
+        "mixed_alerts": mixed_alerts,
         "threat_history": threat_history,
         "top_ips": top_ips,
         "top_usernames": top_usernames,

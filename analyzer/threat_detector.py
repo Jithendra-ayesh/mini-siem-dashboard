@@ -21,6 +21,52 @@ def is_recent(timestamp_str, minutes=5):
         datetime.now() - timedelta(minutes=minutes)
     )
 
+def detect_brute_force():
+
+    try:
+        with open(LOG_FILE, "r") as file:
+            logs = json.load(file)
+
+    except:
+        return []
+
+    failed_attempts = {}
+    alerts = []
+
+    for log in logs:
+
+        if log["event_type"] != "LOGIN_FAILED":
+            continue
+
+        if not is_recent(log["timestamp"]):
+            continue
+
+        ip = log["ip_address"]
+
+        failed_attempts[ip] = (
+            failed_attempts.get(ip, 0) + 1
+        )
+
+    for ip, count in failed_attempts.items():
+
+        if count >= 10:
+            alerts.append({
+                "type": "Brute Force",
+                "ip": ip,
+                "attempts": count
+            })
+
+            log_threat(
+                "HIGH",
+                "Brute Force Attack",
+
+                ip,
+                "MULTIPLE_USERS",
+                f"{count} failed login attempts from same IP",
+                "Password guessing attack detected"
+            )
+    return alerts
+
 def detect_credential_stuffing():
 
     try:
@@ -119,4 +165,64 @@ def detect_username_enumeration():
                 "Account discovery activity detected"
             )
 
+    return alerts
+
+def detect_mixed_attack():
+
+    try:
+        with open(LOG_FILE, "r") as file:
+            logs = json.load(file)
+
+    except:
+        return []
+
+    ip_activity = {}
+    alerts = []
+
+    for log in logs:
+
+        if log["event_type"] != "LOGIN_FAILED":
+            continue
+
+        if not is_recent(log["timestamp"]):
+            continue
+
+        ip = log["ip_address"]
+        username = log["username"]
+
+        if ip not in ip_activity:
+
+            ip_activity[ip] = {
+                "attempts": 0,
+                "usernames": set()
+            }
+
+        ip_activity[ip]["attempts"] += 1
+        ip_activity[ip]["usernames"].add(username)
+
+    for ip, data in ip_activity.items():
+
+        if (
+            data["attempts"] >= 10 and
+            len(data["usernames"]) >= 5
+        ):
+
+            alerts.append({
+                "type": "Mixed Attack",
+                "ip": ip,
+                "attempts": data["attempts"],
+                "usernames": len(
+                    data["usernames"]
+                )
+            })
+
+            log_threat(
+                "HIGH",
+                "Mixed Attack",
+                ip,
+
+                "MULTIPLE_USERS",
+                f"{data['attempts']} failed attempts against {len(data['usernames'])} usernames",
+                "Multiple attack techniques detected from same source"
+            )
     return alerts

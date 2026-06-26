@@ -208,5 +208,195 @@
         "reason": "5 failed login attempts within 5 minutes",
         "impact": "Potential account compromise attempt",
         "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:19:45",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "44.40.120.130",
+        "username": "admin",
+        "reason": "8 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:23:13",
+        "severity": "MEDIUM",
+        "threat_type": "Username Enumeration",
+        "ip": "101.243.182.80",
+        "username": "MULTIPLE_USERS",
+        "reason": "6 usernames tested from same IP",
+        "impact": "Account discovery activity detected",
+        "status": "BLOCKED"
+    },
+    {
+        "timestamp": "2026-06-26 12:23:18",
+        "severity": "HIGH",
+        "threat_type": "Brute Force Attack",
+        "ip": "101.243.182.80",
+        "username": "MULTIPLE_USERS",
+        "reason": "13 failed login attempts from same IP",
+        "impact": "Password guessing attack detected",
+        "status": "BLOCKED"
+    },
+    {
+        "timestamp": "2026-06-26 12:23:18",
+        "severity": "HIGH",
+        "threat_type": "Mixed Attack",
+        "ip": "101.243.182.80",
+        "username": "MULTIPLE_USERS",
+        "reason": "13 failed attempts against 7 usernames",
+        "impact": "Multiple attack techniques detected from same source",
+        "status": "BLOCKED"
+    },
+    {
+        "timestamp": "2026-06-26 12:23:38",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "101.243.182.80",
+        "username": "administrator",
+        "reason": "5 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "BLOCKED"
+    },
+    {
+        "timestamp": "2026-06-26 12:28:14",
+        "severity": "MEDIUM",
+        "threat_type": "Username Enumeration",
+        "ip": "101.243.182.80",
+        "username": "MULTIPLE_USERS",
+        "reason": "9 usernames tested from same IP",
+        "impact": "Account discovery activity detected",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:28:19",
+        "severity": "HIGH",
+        "threat_type": "Brute Force Attack",
+        "ip": "101.243.182.80",
+        "username": "MULTIPLE_USERS",
+        "reason": "89 failed login attempts from same IP",
+        "impact": "Password guessing attack detected",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:28:19",
+        "severity": "HIGH",
+        "threat_type": "Mixed Attack",
+        "ip": "101.243.182.80",
+        "username": "MULTIPLE_USERS",
+        "reason": "89 failed attempts against 9 usernames",
+        "impact": "Multiple attack techniques detected from same source",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:28:38",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "101.243.182.80",
+        "username": "support",
+        "reason": "10 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:45:18",
+        "severity": "MEDIUM",
+        "threat_type": "Username Enumeration",
+        "ip": "37.127.206.190",
+        "username": "MULTIPLE_USERS",
+        "reason": "6 usernames tested from same IP",
+        "impact": "Account discovery activity detected",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:45:24",
+        "severity": "HIGH",
+        "threat_type": "Mixed Attack",
+        "ip": "37.127.206.190",
+        "username": "MULTIPLE_USERS",
+        "reason": "14 failed attempts against 8 usernames",
+        "impact": "Multiple attack techniques detected from same source",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:45:28",
+        "severity": "HIGH",
+        "threat_type": "Brute Force Attack",
+        "ip": "37.127.206.190",
+        "username": "MULTIPLE_USERS",
+        "reason": "17 failed login attempts from same IP",
+        "impact": "Password guessing attack detected",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:45:38",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "37.127.206.190",
+        "username": "admin",
+        "reason": "5 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:50:43",
+        "severity": "MEDIUM",
+        "threat_type": "Username Enumeration",
+        "ip": "37.127.206.190",
+        "username": "MULTIPLE_USERS",
+        "reason": "8 usernames tested from same IP",
+        "impact": "Account discovery activity detected",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:50:43",
+        "severity": "HIGH",
+        "threat_type": "Brute Force Attack",
+        "ip": "37.127.206.190",
+        "username": "MULTIPLE_USERS",
+        "reason": "22 failed login attempts from same IP",
+        "impact": "Password guessing attack detected",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 12:50:43",
+        "severity": "HIGH",
+        "threat_type": "Mixed Attack",
+        "ip": "37.127.206.190",
+        "username": "MULTIPLE_USERS",
+        "reason": "22 failed attempts against 8 usernames",
+        "impact": "Multiple attack techniques detected from same source",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 13:21:05",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "187.140.132.221",
+        "username": "admin",
+        "reason": "5 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 13:21:10",
+        "severity": "HIGH",
+        "threat_type": "Brute Force Attack",
+        "ip": "187.140.132.221",
+        "username": "MULTIPLE_USERS",
+        "reason": "10 failed login attempts from same IP",
+        "impact": "Password guessing attack detected",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 13:26:08",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "187.140.132.221",
+        "username": "admin",
+        "reason": "13 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "OPEN"
     }
 ]

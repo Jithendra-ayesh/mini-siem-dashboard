@@ -1,1 +1,7 @@
-[]
+[
+    {
+        "ip": "101.243.182.80",
+        "blocked_at": "2026-06-26 12:25:12",
+        "reason": "Manual block from dashboard"
+    }
+]
