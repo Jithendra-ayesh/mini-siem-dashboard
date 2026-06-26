@@ -95,12 +95,22 @@
 
         <br>
         <div class="row mt-4">
-            <div style="height: 300px;">
-                    <canvas id="loginChart"></canvas>
+            <div class="col-md-6 mb-3">
+                <div class="card shadow p-3">
+                    <h5 class="text-center">Login Distribution</h5>
+                    <div style="height:280px">
+                        <canvas id="loginChart"></canvas>
                     </div>
+                </div>
+            </div>
 
-            <div style="height: 300px;">
-                    <canvas id="eventChart"></canvas>
+            <div class="col-md-6 mb-3">
+                <div class="card shadow p-3">
+                    <h5 class="text-center">Event Summary</h5>
+                    <div style="height:280px">
+                        <canvas id="eventChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -108,39 +118,72 @@
     <div class="tab-pane fade" id="analytics">
 
     <h2>Analytics</h2>
-<div class="row">
-    <div class="card shadow p-3 mb-3 col-md-6">
-        <h4>Top Targeted Usernames</h4>
-        <canvas id="usernameChart"></canvas>
+
+    <div class="d-flex justify-content-end mb-3">
+
+        <select id="analytics-filter"
+                class="form-select w-auto">
+
+            <option value="7">Last 7 Days (Default)</option>
+            <option value="1">Today</option>
+            <option value="30">Last 30 Days</option>
+            <option value="365">Last Year</option>
+            <option value="all">All Time</option>
+
+        </select>
+
     </div>
 
-    <div class="card shadow p-3 mb-3 col-md-6">
-        <h4>Top Source IP Addresses</h4>
-        <canvas id="ipChart"></canvas>
+<div class="row mt-4">
+    <div class="col-md-6 mb-3">
+        <div class="card shadow p-3">
+            <h5 class="text-center mb-3">Top Targeted Usernames</h5>
+            <canvas id="usernameChart"></canvas>
+            <a href="/all-usernames"
+                class="btn btn-outline-primary btn-sm mt-2">
+                View All Usernames
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <div class="card shadow p-3">
+            <h5 class="text-center mb-3">Top Source IP Addresses</h5>
+            <canvas id="ipChart"></canvas>
+            <a href="/all-ips"
+                class="btn btn-outline-primary btn-sm mt-2">
+                View All IPs
+            </a>
+        </div>
     </div>
     </div>
 
     <div class="row mt-4">
+        <div class="mb-3 col-md-6">
+            <div class="card shadow p-3">
+                <h5 class="text-center mb-3">Login Attempts Per Day</h5>
+                <canvas id="dailyChart"></canvas>
+            </div>
+        </div>
 
-    <div class="card shadow p-3 mb-3 col-md-6">
-        <h4>Login Attempts Per Day</h4>
-        <canvas id="dailyChart"></canvas>
-    </div>
-
-    <div class="card shadow p-3 mb-3 col-md-6">
-        <h4>Login Attempts Per Hour</h4>
-        <canvas id="hourlyChart"></canvas>
-    </div>
+        <div class="col-md-6 mb-3">
+            <div class="card shadow p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 id="hourly-title" class="text-center mb-3">Login Attempts Per Hour (Today)</h5>
+                    <button id="reset-hourly" class="btn btn-sm btn-outline-primary">Today</button>
+                </div>
+                <canvas id="hourlyChart"></canvas>
+            </div>
+        </div>
     </div>
 
 </div>
 
-        <div class="tab-pane fade"
-        id="events">
+        <div class="tab-pane fade" id="events">
  
         <h2>Recent Security Events</h2>
 
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Timestamp</th>
@@ -188,7 +231,6 @@
         <div class="tab-pane fade" id="threats">
 
         <h2>Threat Summary</h2>
-
         <div id="updare-cards" class="row">
 
             <div class="col-md-3">
@@ -220,10 +262,20 @@
             </div>
 
         </div>
-        <hr>
 
     <div id="threat-container" class="row"></div>
 
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card shadow p-3">
+                    <h4>Threat Distribution</h4>
+                    <div style="height:280px">
+                        <canvas id="threatChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
             <h2>Threat History</h2>
 
             <a href="/export-threats"
@@ -232,7 +284,7 @@
                 </a>
 
             <table class="table table-dark table-hover">
-                <thead>
+                <thead class="table-dark sticky-top">
                     <tr>
                         <th>Time</th>
                         <th>Severity</th>
@@ -333,7 +385,7 @@
 
     <hr>
 
-<p class="text-center text-muted">Mini SIEM Dashboard v1.0</p>
+<p class="text-center mt-5 text-muted">Mini SIEM Dashboard v1.0</p>
 
     <script>
 
@@ -353,7 +405,10 @@
         dailyCounts: {{ daily_activity.values() | list | tojson }},
 
         hourlyLabels: {{ hourly_activity.keys() | list | tojson }},
-        hourlyCounts: {{ hourly_activity.values() | list | tojson }}
+        hourlyCounts: {{ hourly_activity.values() | list | tojson }},
+
+        threatLabels: {{ threat_distribution.keys() | list | tojson }},
+        threatCounts: {{ threat_distribution.values() | list | tojson }},
 
     };
 

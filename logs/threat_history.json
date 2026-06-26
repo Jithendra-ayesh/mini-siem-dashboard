@@ -398,5 +398,15 @@
         "reason": "13 failed login attempts within 5 minutes",
         "impact": "Potential account compromise attempt",
         "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-26 18:25:22",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "47.55.125.254",
+        "username": "admin",
+        "reason": "5 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "OPEN"
     }
 ]

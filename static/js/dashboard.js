@@ -4,6 +4,9 @@ let usernameChart;
 let ipChart;
 let dailyChart;
 let hourlyChart;
+let threatChart;
+let selectedDay = null;
+let analyticsFilter = 7;
 
 function initializeCharts() {
 
@@ -22,6 +25,10 @@ function initializeCharts() {
                         dashboardData.failedLogins
                     ]
                 }]
+            },
+            options:{
+                responsive:true,
+                maintainAspectRatio:false
             }
         }
     );
@@ -63,6 +70,9 @@ function initializeCharts() {
                     label: "Targeted Usernames",
                     data: dashboardData.usernameCounts
                 }]
+            },
+            options:{
+                indexAxis:"y"
             }
         }
     );
@@ -79,6 +89,9 @@ function initializeCharts() {
                     label: "Source IP Activity",
                     data: dashboardData.ipCounts
                 }]
+            },
+            options:{
+                indexAxis:"y"
             }
         }
     );
@@ -95,14 +108,52 @@ function initializeCharts() {
                     label: "Events Per Day",
                     data: dashboardData.dailyCounts
                 }]
+            },
+            elements:{
+                point:{
+                    radius:4
+                }
             }
         }
     );
 
+    dailyChart.options.onClick = function(event, elements){
+
+        if(elements.length === 0){
+            return;
+        }
+
+        const index = elements[0].index;
+        selectedDay = 
+           dailyChart.data.labels[index];
+
+        fetch("/hourly/" + selectedDay)
+
+        .then(response => response.json())
+        .then(data => {
+
+            hourlyChart.data.labels =
+                Object.keys(data);
+
+            hourlyChart.data.datasets[0].data =
+                Object.values(data);
+
+            hourlyChart.update();
+
+            document.getElementById(
+                "hourly-title"
+            ).innerText =
+                "Login Attempts Per Hour (" +
+                selectedDay +
+                ")";
+        });
+
+    };
+
     hourlyChart = new Chart(
         document.getElementById("hourlyChart"),
         {
-            type: "line",
+            type: "bar",
 
             data: {
                 labels: dashboardData.hourlyLabels,
@@ -114,11 +165,57 @@ function initializeCharts() {
             }
         }
     );
+
+    threatChart = new Chart(
+        document.getElementById("threatChart"),
+        {
+            type: "doughnut",
+            data: {
+                labels: dashboardData.threatLabels,
+                
+                datasets: [{
+                    label: "Detected Threats",
+                    data: dashboardData.threatCounts
+                }]
+            },
+            options:{
+                responsive:true,
+                maintainAspectRatio:false
+            }
+        }
+    );
+
+    document.getElementById("reset-hourly")
+        .addEventListener("click", function(){
+
+            selectedDay = null;
+
+            document.getElementById(
+                "hourly-title"
+            ).innerText =
+            "Login Attempts Per Hour (Today)";
+
+            updateDashboard();
+
+        }
+    );
+
+    document
+    .getElementById("analytics-filter")
+    .addEventListener("change",function(){
+
+        analyticsFilter=this.value;
+        updateDashboard();
+
+    });
 }
       
 function updateDashboard() {
 
-    fetch("/dashboard-data")
+    fetch(
+        "/dashboard-data?days=" +
+        analyticsFilter
+    )
 
     .then(response => response.json())
     .then(data => {
@@ -173,13 +270,40 @@ function updateDashboard() {
 
         dailyChart.update();
 
-        hourlyChart.data.labels =
-            Object.keys(data.hourly_activity);
+        if(selectedDay){
+            fetch("/hourly/" + selectedDay)
+            .then(response => response.json())
+            .then(hourlyData => {
 
-        hourlyChart.data.datasets[0].data =
-            Object.values(data.hourly_activity);
+                hourlyChart.data.labels =
+                    Object.keys(hourlyData);
 
-        hourlyChart.update();
+                hourlyChart.data.datasets[0].data =
+                    Object.values(hourlyData);
+
+                hourlyChart.update();
+
+            });
+
+        }
+        else{
+            hourlyChart.data.labels =
+                Object.keys(data.hourly_activity);
+
+            hourlyChart.data.datasets[0].data =
+                Object.values(data.hourly_activity);
+
+            hourlyChart.update();
+
+        }
+
+        threatChart.data.labels =
+            Object.keys(data.threat_distribution);
+
+        threatChart.data.datasets[0].data =
+            Object.values(data.threat_distribution);
+
+        threatChart.update();
 
         const eventsBody =
             document.getElementById("events-body");
@@ -228,7 +352,6 @@ function updateDashboard() {
             threatContainer.innerHTML += `
 
                 <div class="card border-danger p-3 col-mb-3">
-                    
                     <h3 style="color:red;">HIGH ALERT</h3>
 
                     <p>Credential Stuffing Detected</p>

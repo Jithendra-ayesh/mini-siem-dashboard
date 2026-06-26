@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, Response
 from analyzer.logger import log_event
-from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_usernames, analyze_daily_activity, analyze_hourly_activity
+from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_usernames, analyze_daily_activity, analyze_hourly_activity, analyze_threat_distribution, get_all_ips, get_all_usernames, analyze_hourly_activity_by_day
 from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration, detect_brute_force, detect_mixed_attack
 from analyzer.threat_history import load_threat_history, mark_ip_blocked
 from analyzer.blocklist import is_ip_blocked
@@ -106,6 +106,8 @@ def dashboard():
     brute_force_alerts = detect_brute_force()
     mixed_alerts = detect_mixed_attack()
     threat_history = load_threat_history()
+    threat_distribution = analyze_threat_distribution()
+
     high_alerts = len([
         t for t in threat_history
         if t["severity"] == "HIGH"
@@ -144,7 +146,9 @@ def dashboard():
         credential_alerts=credential_alerts,
         enumeration_alerts=enumeration_alerts,
         brute_force_alerts=brute_force_alerts,
+        mixed_alerts=mixed_alerts,
         threat_history=threat_history,
+        threat_distribution=threat_distribution,
         high_alerts=high_alerts,
         medium_alerts=medium_alerts,
         open_alerts=open_alerts,
@@ -159,6 +163,11 @@ def dashboard():
 def dashboard_data():
     if not session.get("admin"):
         return redirect(url_for("admin_login"))
+    
+    days = request.args.get(
+        "days",
+        "7"
+    )
 
     stats = analyze_logs()
 
@@ -167,10 +176,12 @@ def dashboard_data():
     brute_force_alerts = detect_brute_force()
     mixed_alerts = detect_mixed_attack()
     threat_history = load_threat_history()
-    top_ips = analyze_top_ips()
-    top_usernames = analyze_top_usernames()
-    daily_activity = analyze_daily_activity()
-    hourly_activity = analyze_hourly_activity()
+    threat_distribution = analyze_threat_distribution()
+    top_ips = analyze_top_ips(days)
+    top_usernames = analyze_top_usernames(days)
+    daily_activity = analyze_daily_activity(days)
+    hourly_activity = analyze_hourly_activity(None, days)
+    threat_distribution = analyze_threat_distribution()
 
     return jsonify({
         "total_events": stats["total_events"],
@@ -182,6 +193,7 @@ def dashboard_data():
         "brute_force_alerts": brute_force_alerts,
         "mixed_alerts": mixed_alerts,
         "threat_history": threat_history,
+        "threat_distribution": threat_distribution,
         "top_ips": top_ips,
         "top_usernames": top_usernames,
         "daily_activity": daily_activity,
@@ -382,6 +394,39 @@ def resolve_threat(ip):
 
     return redirect(
         url_for("dashboard")
+    )
+
+@app.route("/all-ips")
+def all_ips():
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    return render_template(
+        "all_ips.html",
+        ips=get_all_ips()
+    )
+
+
+@app.route("/all-usernames")
+def all_usernames():
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    return render_template(
+        "all_usernames.html",
+        usernames=get_all_usernames()
+    )
+
+@app.route("/hourly/<day>")
+def hourly_by_day(day):
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    return jsonify(
+        analyze_hourly_activity_by_day(day)
     )
 
 @app.route("/logout")
