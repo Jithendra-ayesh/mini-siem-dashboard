@@ -37,7 +37,7 @@ def login():
                 message="Access Denied - IP Address Blocked"
             )
 
-        if username == "admin" and password == "1234":
+        if username == "jak" and password == "1234":
 
             log_event(
                 "LOGIN_SUCCESS",
@@ -47,7 +47,6 @@ def login():
 
             return render_template(
                 "response.html",
-                message="Login Successful"
             )
 
         log_event(

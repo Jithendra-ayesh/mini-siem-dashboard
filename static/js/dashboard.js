@@ -178,9 +178,21 @@ function initializeCharts() {
                     data: dashboardData.threatCounts
                 }]
             },
-            options:{
-                responsive:true,
-                maintainAspectRatio:false
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        align: 'center',
+                        
+                        labels: {
+                            boxWidth: 25,
+                            padding: 15 
+                        }
+                    }
+                }
             }
         }
     );

@@ -3244,5 +3244,185 @@
         "event_type": "LOGIN_SUCCESS",
         "username": "admin",
         "ip_address": "59.206.71.132"
+    },
+    {
+        "timestamp": "2026-06-29 12:04:45",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:09:10",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:10:44",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:13:59",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:15:08",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:18:42",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:21:21",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "JAK",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:24:59",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:25:10",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "JAK",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:25:19",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "JAK",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:25:37",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "JAK",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:34:28",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:34:37",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "JAK",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:35:10",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:37:26",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:40:17",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:41:38",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:41:50",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:42:41",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:42:54",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:43:02",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:43:14",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:43:21",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:43:44",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:43:59",
+        "event_type": "LOGIN_FAILED",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:45:20",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:45:29",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:45:41",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:45:47",
+        "event_type": "LOGIN_FAILED",
+        "username": "admin",
+        "ip_address": "127.0.0.1"
+    },
+    {
+        "timestamp": "2026-06-29 12:46:16",
+        "event_type": "LOGIN_SUCCESS",
+        "username": "jak",
+        "ip_address": "127.0.0.1"
     }
 ]

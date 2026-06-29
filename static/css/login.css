@@ -1,0 +1,147 @@
+body{
+    background:linear-gradient(
+        -45deg,
+        #96b6ff,
+        #6ca1f7,
+        #00c0b0,
+        #235cb7
+    );
+    min-height:100vh;
+    margin: 0;
+    font-family:Arial, Helvetica, sans-serif;
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+.login-card{
+    width:100%;
+    max-width: 420px;
+    border:none;
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    animation:fadeIn .7s ease;
+    background: #ffffff;
+    padding: 35px;
+    position:relative;
+    overflow:hidden;
+}
+
+.login-card::before{
+    content:"";
+    position:absolute;
+    top:-100%;
+    left:-100%;
+    width:300%;
+    height:300%;
+    background:
+    linear-gradient(
+        45deg,
+        transparent,
+        rgba(255,255,255,.15),
+        transparent
+    );
+    animation:scan 5s linear infinite;
+}
+
+@keyframes scan{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.form-control:focus{
+    box-shadow:0 0 10px rgba(13,110,253,.25);
+    border-color:#0d6efd;
+}
+
+.login-logo{
+    font-size:55px;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+.input-group-text{
+    background:#f8f9fa;
+}
+
+.btn-primary{
+    transition:.3s;
+    font-weight:600;
+    border-radius:10px;
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px rgba(13,110,253,.3);
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.footer{
+    position:fixed;
+    bottom:20px;
+    width:100%;
+    text-align:center;
+    color:#cbd5e1;
+    font-size:14px;
+
+}
+
+#subtitle::after{
+
+    content:"|";
+    animation:blink .8s infinite;
+
+}
+
+@keyframes blink{
+
+    50%{
+        opacity:0;
+    }
+}

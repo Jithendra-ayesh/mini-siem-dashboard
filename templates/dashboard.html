@@ -226,55 +226,48 @@
             </tbody>
         </table>
 
-    </div>
+         </div>
 
         <div class="tab-pane fade" id="threats">
 
         <h2>Threat Summary</h2>
-        <div id="updare-cards" class="row">
 
-            <div class="col-md-3">
-                <div class="card shadow-lg border-0 p-3 bg-danger text-white">
-                    <h5>High Alerts</h5>
-                    <h2>{{ high_alerts }}</h2>
+            <div class="row mt-4">
+                <div class="mb-3 col-md-3">
+                    <div class="card shadow border-0 p-4 bg-danger text-white">
+                        <h5>High Alerts</h5>
+                        <h2>{{ high_alerts }}</h2>
+                    </div>
+
+                    <div class="card shadow border-0 mt-5 p-4 bg-primary text-white">
+                        <h5>Open Incidents</h5>
+                        <h2>{{ open_alerts }}</h2>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-lg border-0 p-3 bg-warning text-white">
-                    <h5>Medium Alerts</h5>
-                    <h2>{{ medium_alerts }}</h2>
+  
+                <div class="mb-3 col-md-3">
+                    <div class="card shadow border-0 p-4 bg-warning text-white">
+                        <h5>Medium Alerts</h5>
+                        <h2>{{ medium_alerts }}</h2>
+                    </div>
+                    <div class="card shadow border-0 p-4 mt-5 bg-dark text-white">
+                        <h5>Blocked IPs</h5>
+                        <h2>{{ blocked_count }}</h2>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-lg border-0 p-3 bg-primary text-white">
-                    <h5>Open Incidents</h5>
-                    <h2>{{ open_alerts }}</h2>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-lg border-0 p-3 bg-dark text-white">
-                    <h5>Blocked IPs</h5>
-                    <h2>{{ blocked_count }}</h2>
-                </div>
-            </div>
-
-        </div>
-
-    <div id="threat-container" class="row"></div>
-
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="card shadow p-3">
-                    <h4>Threat Distribution</h4>
-                    <div style="height:280px">
-                        <canvas id="threatChart"></canvas>
+  
+                <div class="col-md-6" style="color: antiquewhite;">
+                    <div class="card shadow p-2 border-0">
+                        <h6 class="text-center mb-3">Threat Distribution</h6>                         
+                        <div style="height:250px">
+                            <canvas id="threatChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        <div id="threat-container" class="row"></div>
+
         <hr>
             <h2>Threat History</h2>
 
@@ -375,6 +368,7 @@
                 </tbody>
             </table>
         </div>
+        </div>
     </div>
 
     <a href="/export" class="btn btn-success">📥 Export Report</a>
@@ -385,7 +379,7 @@
 
     <hr>
 
-<p class="text-center mt-5 text-muted">Mini SIEM Dashboard v1.0</p>
+    <p class="text-center mt-5 text-muted">Mini SIEM Dashboard v1.0</p>
 
     <script>
 
