@@ -13,8 +13,6 @@ body{
     overflow:hidden;
 }
 
-/* Floating background circles */
-
 body::before,
 body::after{
     content:"";

@@ -408,5 +408,45 @@
         "reason": "5 failed login attempts within 5 minutes",
         "impact": "Potential account compromise attempt",
         "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-30 11:44:57",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "40.153.82.94",
+        "username": "admin",
+        "reason": "7 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-30 11:45:03",
+        "severity": "HIGH",
+        "threat_type": "Brute Force Attack",
+        "ip": "40.153.82.94",
+        "username": "MULTIPLE_USERS",
+        "reason": "12 failed login attempts from same IP",
+        "impact": "Password guessing attack detected",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-30 11:49:59",
+        "severity": "HIGH",
+        "threat_type": "Credential Stuffing",
+        "ip": "40.153.82.94",
+        "username": "admin",
+        "reason": "20 failed login attempts within 5 minutes",
+        "impact": "Potential account compromise attempt",
+        "status": "OPEN"
+    },
+    {
+        "timestamp": "2026-06-30 11:50:03",
+        "severity": "HIGH",
+        "threat_type": "Brute Force Attack",
+        "ip": "40.153.82.94",
+        "username": "MULTIPLE_USERS",
+        "reason": "17 failed login attempts from same IP",
+        "impact": "Password guessing attack detected",
+        "status": "OPEN"
     }
 ]
