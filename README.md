@@ -206,8 +206,8 @@ It is intended for learning, research, and demonstration of basic SIEM concepts.
 ### Login Pages
 
 <p align="center">
-    <img src="screenshots/login.png" width="45%">
-    <img src="screenshots/admin-login.png" width="45%">
+    <img src="docs/screenshots/login.png" width="45%">
+    <img src="docs/screenshots/admin-login.png" width="45%">
 </p>
 
 ---
@@ -215,7 +215,7 @@ It is intended for learning, research, and demonstration of basic SIEM concepts.
 ### Dashboard
 
 <p align="center">
-    <img src="screenshots/dashboard-overview.png" width="90%">
+    <img src="docs/screenshots/dashboard-overview.png" width="90%">
 </p>
 
 ---
@@ -223,7 +223,7 @@ It is intended for learning, research, and demonstration of basic SIEM concepts.
 ### Analytics
 
 <p align="center">
-    <img src="screenshots/analytics.png" width="90%">
+    <img src="docs/screenshots/analytics.png" width="90%">
 </p>
 
 ---
@@ -231,7 +231,7 @@ It is intended for learning, research, and demonstration of basic SIEM concepts.
 ### Threat Management
 
 <p align="center">
-    <img src="screenshots/threats.png" width="90%">
+    <img src="docs/screenshots/threats.png" width="90%">
 </p>
 
 ## Project Status
