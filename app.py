@@ -4,6 +4,7 @@ from analyzer.log_analyzer import analyze_logs, analyze_top_ips, analyze_top_use
 from analyzer.threat_detector import detect_credential_stuffing, detect_username_enumeration, detect_brute_force, detect_mixed_attack
 from analyzer.threat_history import load_threat_history, mark_ip_blocked
 from analyzer.blocklist import is_ip_blocked
+from analyzer.user_manager import authenticate, get_user
 from io import StringIO
 from datetime import datetime
 import csv, json
@@ -13,7 +14,7 @@ app.secret_key = "mini_siem_secret_key"
 
 
 @app.route("/")
-def home():
+def log():
     return render_template("login.html")
 
 
@@ -37,7 +38,8 @@ def login():
                 message="Access Denied - IP Address Blocked"
             )
 
-        if username == "jak" and password == "1234":
+        user = authenticate(username, password)
+        if user and user["role"] == "user":
 
             log_event(
                 "LOGIN_SUCCESS",
@@ -45,8 +47,12 @@ def login():
                 ip_address
             )
 
-            return render_template(
-                "response.html",
+            session["username"] = user["username"]
+            session["name"] = user["name"]
+            session["role"] = user["role"]
+
+            return redirect(
+                url_for("home")
             )
 
         log_event(
@@ -83,8 +89,14 @@ def admin_login():
                 message="Access Denied - IP Address Blocked"
             )
 
-        if username == "admin" and password == "admin123":
+        user = authenticate(username, password)
+
+        if user and user["role"] == "admin":
+
             session["admin"] = True
+            session["username"] = user["username"]
+            session["name"] = user["name"]
+            session["role"] = user["role"]
             return redirect(url_for("dashboard"))
 
         return render_template(
@@ -428,12 +440,80 @@ def hourly_by_day(day):
         analyze_hourly_activity_by_day(day)
     )
 
+@app.route("/home")
+def home():
+
+    if "username" not in session:
+        return redirect(
+            url_for("login")
+        )
+
+    return render_template(
+        "home.html"
+    )
+
+@app.route("/documents")
+def documents():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user = get_user(session["username"])
+
+    return render_template(
+        "documents.html",
+        documents=user["documents"],
+        user=user
+    )
+
+@app.route("/messages")
+def messages():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user = get_user(session["username"])
+
+    return render_template(
+        "messages.html",
+        user=user,
+        messages=user.get("messages", [])
+    )
+
+@app.route("/downloads")
+def downloads():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user = get_user(session["username"])
+
+    return render_template(
+        "downloads.html",
+        user=user,
+        downloads=user.get("downloads", [])
+    )
+
+@app.route("/profile")
+def profile():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user = get_user(session["username"])
+
+    return render_template(
+        "profile.html",
+        user=user
+    )
+
 @app.route("/logout")
 def logout():
 
     session.pop("admin", None)
 
-    return redirect(url_for("admin_login"))
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+    

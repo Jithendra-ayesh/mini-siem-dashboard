@@ -23,6 +23,8 @@ def generate_username():
         "guest",
         "user",
         "test"
+        "jak"
+        "JAK"
     ]
 
     return random.choice(usernames)
@@ -68,7 +70,7 @@ def brute_force():
 
     while True:
 
-        username = "admin"
+        username = "jak"
         password = random.choice(passwords)
 
         response = send_request(

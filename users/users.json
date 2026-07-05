@@ -1,0 +1,92 @@
+[
+    {
+        "username": "admin",
+        "password": "admin123",
+        "role": "admin",
+        "name": "System Administrator"
+    },
+    {
+        "username": "john",
+        "password": "Welcome123!",
+        "role": "user",
+        "name": "John Smith",
+        "department":"Human Resources",
+        "documents": [
+            "Employee Handbook.pdf",
+            "Leave Policy.pdf",
+            "Security Awareness.pdf"
+        ],
+
+        "downloads": [
+            "VPN Client.exe",
+            "Microsoft Teams.exe"
+        ],
+
+        "messages": [
+            "Welcome to the company.",
+            "Complete your cybersecurity training."
+        ]
+    },
+    {
+        "username": "alice",
+        "password": "Alice@2025",
+        "role": "user",
+        "name": "Alice Johnson",
+        "department": "Marketing",
+        "documents":[
+            "Marketing Strategy.pdf",
+            "Brand Guidelines.pdf"
+        ],
+
+        "downloads":[
+            "Adobe Assets.zip"
+        ],
+
+        "messages":[
+            "New campaign starts next Monday."
+        ]
+    },
+    {
+        "username": "finance",
+        "password": "Finance2025",
+        "role": "user",
+        "name": "Finance Department",
+        "department": "Finance",
+
+        "documents": [
+            "Payroll.xlsx",
+            "Budget Report.pdf",
+            "Expense Policy.pdf"
+        ],
+
+        "downloads": [
+            "Finance Toolkit.zip"
+        ],
+
+        "messages": [
+            "Monthly payroll has been processed."
+        ]
+    },
+    {
+        "username": "support",
+        "password": "Support123",
+        "role": "user",
+        "name": "Support Team",
+        "department": "IT Support",
+
+        "documents": [
+            "Server Inventory.pdf",
+            "VPN Configuration.pdf",
+            "Printer Guide.pdf"
+        ],
+
+        "downloads": [
+            "PuTTY.exe",
+            "WinSCP.exe"
+        ],
+
+        "messages": [
+            "Remember to rotate server passwords."
+        ]
+    }
+]
